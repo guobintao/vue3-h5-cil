@@ -5,6 +5,16 @@ module.exports = defineConfig({
   transpileDependencies: true,
   devServer:{
    host:'localhost',
+   port:8080,
+   proxy:{
+    '^/dev':{
+      target:'http://localhost:7001',
+      changeOrigin:true,
+      pathRewrite:{
+        '^/dev':''
+      }
+    }
+   }
   },
   configureWebpack: {
     plugins: [
