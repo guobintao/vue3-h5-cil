@@ -24,16 +24,36 @@
 import { defineComponent, ref } from 'vue'
 import { UserManageType } from '@/interface/model/user'
 import { useUserSerivice } from '@/api/user'
+import { useRouter } from 'vue-router'
+import { showToast, Toast } from 'vant'
 export default defineComponent({
   name: 'LoginView',
   props: {},
   setup() {
+    const router = useRouter()
     const userSerivice = useUserSerivice()
     const state = {
       formState: ref<UserManageType.UserLoginFormState>(new UserManageType.UserLoginFormState())
     }
     const onSubmit = async () => {
       const result = await userSerivice.login(state.formState.value)
+      if (result.code == 1) {
+        showToast({
+          type: 'success',
+          message: result.msg,
+          onClose() {
+            router.push('/home')
+          }
+        })
+      } else {
+        showToast({
+          type: 'fail',
+          message: result.msg,
+          onClose() {
+            state.formState.value = new UserManageType.UserRegistryFormState()
+          }
+        })
+      }
       console.log(result)
     }
     return {
