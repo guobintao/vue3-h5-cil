@@ -1,11 +1,19 @@
 <template>
   <div>
     <Swiper></Swiper>
+    <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+      <van-card v-for="item in productList" :key="item.pid" :price="item.sale_price" :desc="item.desc" :title="item.pname" :thumb="item.imgUrl">
+        <template #tags>
+          <van-tag plain type="primary">原价:{{ item.original_price }}</van-tag>
+          <van-tag plain type="primary">销量:{{ item.sales }}</van-tag>
+        </template>
+      </van-card>
+    </van-list>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useHomeSerivice } from '@/api/home'
 import { HomeManageType } from '@/interface/model/home'
 import Swiper from '@/components/Swiper.vue'
@@ -20,20 +28,32 @@ export default defineComponent({
       loading: ref(false),
       finished: ref(false),
       error: ref(false),
-      swiperList: ref<Array<HomeManageType.SwiperInterface>>([]),
       productList: ref<Array<HomeManageType.ProductInterface>>([]),
       pagesize: ref<number>(10),
-      pagecount: ref(1)
+      pagecount: ref<number>(1)
     }
-    const getSwiperList = async () => {
-      const result = await homeserivice.getSwiperList({})
-      state.swiperList.value = result.result
+    const onLoad = async () => {
+      state.loading.value = true
+      const result = await homeserivice
+        .getGoodsList({
+          pagesize: state.pagesize.value,
+          pagecont: state.pagecount.value
+        })
+        .catch(() => {
+          state.error.value = true
+        })
+      if (result.code == 1) {
+        state.pagecount.value = state.pagecount.value + 1
+        state.productList.value = [...state.productList.value, ...result.result]
+      } else {
+        state.finished.value = true
+      }
+      state.loading.value = false
     }
-    onMounted(() => {
-      getSwiperList()
-    })
+
     return {
-      ...state
+      ...state,
+      onLoad
     }
   }
 })

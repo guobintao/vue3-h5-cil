@@ -18,10 +18,7 @@ export default defineComponent({
       loading: ref(false),
       finished: ref(false),
       error: ref(false),
-      swiperList: ref<Array<HomeManageType.SwiperInterface>>([]),
-      productList: ref<Array<HomeManageType.ProductInterface>>([]),
-      pagesize: ref<number>(10),
-      pagecount: ref(1)
+      swiperList: ref<Array<HomeManageType.SwiperInterface>>([])
     }
     const getSwiperList = async () => {
       const result = await homeserivice.getSwiperList({})
