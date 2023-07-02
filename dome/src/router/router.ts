@@ -12,8 +12,8 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/home/index',
-        name: 'index',
-        component: () => import(/* webpackChunkName: "index" */ '../views/home/IndexView.vue')
+        name: 'home',
+        component: () => import(/* webpackChunkName: "home" */ '../views/home/IndexView.vue')
       },
       {
         path: '/home/fen',

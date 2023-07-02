@@ -1,3 +1,9 @@
+/*
+ * @Author: guobintao
+ * @Date: 2023-07-01 07:36:21
+ * @Last Modified by: guobintao
+ * @Last Modified time: 2023-07-01 08:44:58
+ */
 import { createStore } from 'vuex'
 import { CommitInterface } from '@/interface/store'
 import { BasiMangeType } from '@/interface/common'

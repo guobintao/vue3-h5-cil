@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-    <header></header>
+    <LayoutHeader>
+      <template #aaa></template>
+    </LayoutHeader>
     <main>
       <router-view></router-view>
     </main>
@@ -17,9 +19,12 @@
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue'
+import LayoutHeader from '@/components/layout/Header.vue'
 
 export default defineComponent({
-  components: {},
+  components: {
+    LayoutHeader
+  },
   setup() {
     const active = ref()
     return { active }
@@ -35,7 +40,11 @@ export default defineComponent({
   header {
     width: 100%;
     height: 50px;
-    background: red;
+    color: #000;
+    text-align: center;
+    line-height: 50px;
+    font-size: 16px;
+    border-bottom: 1px solid #eee;
   }
   main {
     flex: 1;
