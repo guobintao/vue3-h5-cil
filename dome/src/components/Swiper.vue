@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <Swiper></Swiper>
-  </div>
+  <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+    <van-swipe-item v-for="(item, index) in swiperList" :key="index">
+      <van-image :src="item.img"></van-image>
+    </van-swipe-item>
+  </van-swipe>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import { useHomeSerivice } from '@/api/home'
 import { HomeManageType } from '@/interface/model/home'
-import Swiper from '@/components/Swiper.vue'
 export default defineComponent({
-  name: 'IndexView',
-  components: {
-    Swiper
-  },
+  name: 'SwiperView',
   setup() {
     const homeserivice = useHomeSerivice()
     const state = {
@@ -39,9 +37,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less" scoped>
-.my-swipe {
-  width: 100%;
-  height: 200px;
-}
-</style>
+<style></style>
