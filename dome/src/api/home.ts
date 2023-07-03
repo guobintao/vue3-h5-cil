@@ -10,13 +10,13 @@ import { UserManageType } from '@/interface/model/user'
 import { AxiosError } from 'axios'
 
 interface HomeServiceInterface {
-  getSwiperList: (params: { type?: number; pagesize?: number; pagecont?: number }) => Promise<any>
-  getGoodsList: (params: { pagesize?: number; pagecont?: number }) => Promise<any>
+  getSwiperList: (params: { type?: number; pagesize?: number; pagecount?: number }) => Promise<any>
+  getGoodsList: (params: { pagesize?: number; pagecount?: number }) => Promise<any>
 }
 
 export const useHomeSerivice = (): HomeServiceInterface => {
   class HomeService {
-    getSwiperList(params: { type?: number; pagesize?: number; pagecont?: number }) {
+    getSwiperList(params: { type?: number; pagesize?: number; pagecount?: number }) {
       const url = API_HOME_CONFIG.getSwiperList()
       return request
         .get(url, { params })
@@ -27,7 +27,7 @@ export const useHomeSerivice = (): HomeServiceInterface => {
           return Promise.reject(error)
         })
     }
-    getGoodsList(params: { pagesize?: number; pagecont?: number }) {
+    getGoodsList(params: { pagesize?: number; pagecount?: number }) {
       const url = API_HOME_CONFIG.getGoodsList()
       return request
         .get(url, { params })

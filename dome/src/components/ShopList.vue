@@ -15,9 +15,11 @@
 import { defineComponent, ref } from 'vue'
 import { useHomeSerivice } from '@/api/home'
 import { HomeManageType } from '@/interface/model/home'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'ShopList',
   setup() {
+    const router = useRouter()
     const homeserivice = useHomeSerivice()
     const state = {
       loading: ref(false),
@@ -32,7 +34,7 @@ export default defineComponent({
       const result = await homeserivice
         .getGoodsList({
           pagesize: state.pagesize.value,
-          pagecont: state.pagecount.value
+          pagecount: state.pagecount.value
         })
         .catch(() => {
           state.error.value = true
@@ -45,7 +47,6 @@ export default defineComponent({
       }
       state.loading.value = false
     }
-
     return {
       ...state,
       onLoad

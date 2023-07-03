@@ -11,8 +11,10 @@
             <van-field v-model="formState.password" type="password" name="密码" label="密码" placeholder="密码" :rules="[{ required: true, message: '请填写密码' }]" />
           </van-cell-group>
           <div style="margin: 16px">
-            <van-button round block type="primary" native-type="submit">提交</van-button>
-            <van-button round block type="primary" url="/user/registry">注册</van-button>
+            <van-space direction="vertical" fill>
+              <van-button round block type="primary" native-type="submit">提交</van-button>
+              <van-button round block type="default" url="/user/registry">注册</van-button>
+            </van-space>
           </div>
         </van-form>
       </div>
@@ -42,7 +44,7 @@ export default defineComponent({
           type: 'success',
           message: result.msg,
           onClose() {
-            router.push('/home')
+            router.push('/home/index')
           }
         })
       } else {
